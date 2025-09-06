@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+/* src/styles.css */
+
+/* Constrain the grid container */
+.grid-container {
+  width: 90vw;
+  height: 80vh;
+  border: 1px solid #aaa;
+  overflow: hidden;
+}
+
+/* Theme variables per language */
+:root[data-theme="en"] {
+  --alive-color: #4caf50;
+  --dead-color: #f1f1f1;
+}
+
+:root[data-theme="es"] {
+  --alive-color: #ff5722;
+  --dead-color: #ffffff;
+}
+
+/* Grid & cell styling */
+.grid {
+  display: grid;
+  width: 100%;
+  height: 100%;
+}
+
+.cell {
+  border: 1px solid #ccc;
+  background-color: var(--dead-color);
+}
+
+.cell.alive {
+  background-color: var(--alive-color);
+}

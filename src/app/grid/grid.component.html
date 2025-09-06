@@ -1,0 +1,23 @@
+<!-- src/app/grid/grid.component.html -->
+<div class="button-row">
+  <button (click)="onRandomize()">{{ 'RANDOMIZE' | translate }}</button>
+  <button (click)="onStep()">{{ 'STEP' | translate }}</button>
+  <button (click)="onRun()">{{ 'RUN' | translate }}</button>
+  <button (click)="onStop()">{{ 'STOP' | translate }}</button>
+</div>
+
+<div class="grid-container">
+  <div
+    class="grid"
+    [style.gridTemplateColumns]="'repeat(' + width + ', 1fr)'"
+    [style.gridTemplateRows]="'repeat(' + height + ', 1fr)'"
+  >
+    <div
+      @for="let row of grid; let y = index"
+      @fr="let cell of row; let x = index"
+      class="cell"
+      [class.alive]="cell"
+      (click)="toggleCell(y, x)"
+    ></div>
+  </div>
+</div>

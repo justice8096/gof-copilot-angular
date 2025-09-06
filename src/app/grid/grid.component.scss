@@ -1,0 +1,16 @@
+/* src/app/grid/grid.component.css */
+.button-row {
+  margin-bottom: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.grid-container {
+  position: relative;
+}
+
+.grid {
+  display: grid;
+  width: 100%;
+  height: 100%;
+}

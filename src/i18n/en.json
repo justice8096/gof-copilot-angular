@@ -1,0 +1,11 @@
+// src/assets/i18n/en.json
+{
+  "TITLE": "Game of Life",
+  "WIDTH": "Width",
+  "HEIGHT": "Height",
+  "RANDOMIZE": "Randomize",
+  "STEP": "Step",
+  "RUN": "Run",
+  "STOP": "Stop",
+  "LANGUAGE": "Language"
+}
