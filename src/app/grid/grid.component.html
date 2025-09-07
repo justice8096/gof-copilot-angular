@@ -1,4 +1,3 @@
-<!-- src/app/grid/grid.component.html -->
 <div class="button-row">
   <button (click)="onRandomize()">{{ 'RANDOMIZE' | translate }}</button>
   <button (click)="onStep()">{{ 'STEP' | translate }}</button>
@@ -12,12 +11,14 @@
     [style.gridTemplateColumns]="'repeat(' + width + ', 1fr)'"
     [style.gridTemplateRows]="'repeat(' + height + ', 1fr)'"
   >
-    <div
-      @for="let row of grid; let y = index"
-      @fr="let cell of row; let x = index"
-      class="cell"
-      [class.alive]="cell"
-      (click)="toggleCell(y, x)"
-    ></div>
+    <ng-container *ngFor="let row of (grid$ | async); let y = index">
+      <ng-container *ngFor="let cell of row; let x = index">
+        <div
+          class="cell"
+          [class.alive]="cell"
+          (click)="toggleCell(y, x)"
+        ></div>
+      </ng-container>
+    </ng-container>
   </div>
 </div>

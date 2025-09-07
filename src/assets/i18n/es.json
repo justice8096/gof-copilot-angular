@@ -1,10 +1,11 @@
-// src/assets/i18n/es.json
+
 {
   "TITLE": "Juego de la Vida",
   "WIDTH": "Ancho",
   "HEIGHT": "Altura",
   "RANDOMIZE": "Aleatorizar",
   "STEP": "Paso",
+  "STEP_GEN": "Siguiente Iteración",
   "RUN": "Ejecutar",
   "STOP": "Detener",
   "LANGUAGE": "Idioma"

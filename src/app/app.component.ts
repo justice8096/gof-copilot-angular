@@ -1,30 +1,35 @@
-// src/app/app.component.ts
-import { Component} from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-
-interface Language {
-  code: string;
-  label: string;
-}
+import { Component } from '@angular/core';
+import { NgForOf } from '@angular/common';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { GridComponent } from './grid/grid.component';
 
 @Component({
   selector: 'app-root',
+  standalone: true, 
+  imports: [GridComponent, NgForOf, TranslatePipe],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  languages: Language[] = [
+  languages = [
     { code: 'en', label: 'English' },
     { code: 'es', label: 'Español' }
   ];
 
-  gridWidth = 30;
-  gridHeight = 20;
+  width = 30;
+  height = 20;
 
   constructor(private translate: TranslateService) {
-    this.translate.setDefaultLang('en');
+    this.translate.setFallbackLang('en');
+    this.translate.use('en');
     this.setTheme('en');
   }
+
+  onLanguageChange(event: Event) {
+  const target = event.target as HTMLSelectElement;
+  const lang = target?.value;
+  if (lang) this.changeLanguage(lang);
+}
 
   changeLanguage(lang: string) {
     this.translate.use(lang);

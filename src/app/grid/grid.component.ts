@@ -1,49 +1,41 @@
 // src/app/grid/grid.component.ts
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { NgForOf, AsyncPipe } from '@angular/common';
 import { GridService } from './grid.service';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-grid',
+  standalone: true,
+  imports: [NgForOf, AsyncPipe, TranslatePipe],
   templateUrl: './grid.component.html',
-  styleUrls: ['./grid.component.scss'],
-  providers: [GridService],
+  styleUrls: ['./grid.component.scss']
 })
 export class GridComponent implements OnChanges {
-  @Input() width!: number;
-  @Input() height!: number;
-  grid: boolean[][] = [];
+  @Input() width = 20;
+  @Input() height = 20;
+  grid$!: Observable<boolean[][]>;
 
   constructor(private gridService: GridService) {
-    this.gridService.grid.subscribe(g => this.grid = g);
+    this.grid$ = this.gridService.grid$;
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if ([changes.width] || [changes.height]) {
+    if (changes['width'] || changes['height']) {
       this.gridService.initialize(this.width, this.height);
     }
   }
 
-  toggleCell(y: number, x: number) {
-    const g = this.grid.map(row => [...row]);
-    g[y][x] = !g[y][x];
-    this.gridService.stop();
-    this.gridService.initialize(this.width, this.height);
-    this.gridService.grid$.next(g);
-  }
+toggleCell(y: number, x: number) {
+  const current = this.gridService.getCurrentGrid();
+  const copy = current.map(r => [...r]);
+  copy[y][x] = !copy[y][x];
+  this.gridService.setGrid(copy);
+}
 
-  onRandomize() {
-    this.gridService.randomize();
-  }
-
-  onStep() {
-    this.gridService.step();
-  }
-
-  onRun() {
-    this.gridService.run();
-  }
-
-  onStop() {
-    this.gridService.stop();
-  }
+  onRandomize() { this.gridService.randomize(); }
+  onStep()      { this.gridService.step(); }
+  onRun()       { this.gridService.run(); }
+  onStop()      { this.gridService.stop(); }
 }
